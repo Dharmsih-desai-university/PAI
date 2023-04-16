@@ -3,25 +3,27 @@
      include("classes/config.php");
      include("classes/login.php");
      include("classes/user.php");
-     if(isset($_SESSION['mybook_id']) && is_numeric($_SESSION['mybook_id'])){
-        $id = $_SESSION['mybook_id'];
-        $DB = new Login();
-        $result = $DB->cheak_login($id);
-        if($result){
-             $user = new User();
-             $user_data = $user->get_data($id);
-             if(!$user_data){
-                header("Location : login.php");
-                die;
-             }
-        }else{
-            header("Location : login.php");
-            die;
-        }
-     }else{
-        header("Location : login.php");
+      if(isset($_SESSION['mybook_userid']) && is_numeric($_SESSION['mybook_userid'])){
+         $id = $_SESSION['mybook_userid'];
+         $DB = new Login();
+         $result = $DB->cheak_login($id);
+         if($result){
+              $user = new User();
+              $user_data = $user->get_data($id);
+              if(!$user_data){
+                 header("Location: login.php");
+                 die;
+              }
+         }
+         else{
+            header("Location: login.php");
+             die;
+         }
+      }
+      else{
+        header("Location: login.php");
         die;
-     }
+      }
 ?>
 
 <!DOCTYPE html>
@@ -113,14 +115,14 @@
         <div id="bar">
             <div style="margin: auto;width: 800px;padding: 7px;">
                  My Book &nbsp; &nbsp;<input type="text" id="search_box" placeholder="Search For People">
-                <img src="dp2.jpg" style="width: 40px; float: right;">
+                <img src="project/dp2.jpg" style="width: 40px; float: right;">
             </div>
         </div>
         <!-- Cover Area -->
         <div style="width: 800px; margin: auto;min-height: 400px;">
             <div style="color: #2a78b8; text-align: center;background-color: white;">
-                <img src="cover.jpg" style="width: 100%;">
-                <img id="profile_pic" src="dp2.jpg">
+                <img src="project/cover.jpg" style="width: 100%;">
+                <img id="profile_pic" src="project/dp2.jpg">
                 <br>
                 <div style="font-size: 20px;">Chris Taylor</div>
                 <br>
@@ -139,22 +141,22 @@
                         <br>
                         <!-- Friends photos and name  -->
                         <div id="Friends">
-                            <img id="friends_img" src="rdj.jpg">
+                            <img id="friends_img" src="project/rdj.jpg">
                             <br>
                             Robert Downey jr
                         </div>
                         <div id="Friends">
-                            <img id="friends_img" src="steve.jpg">
+                            <img id="friends_img" src="project/steve.jpg">
                             <br>
                             Steve
                         </div>
                         <div id="Friends">
-                            <img id="friends_img" src="linda martin.jpg">
+                            <img id="friends_img" src="project/linda martin.jpg">
                             <br>
                             Linda 
                         </div>
                         <div id="Friends">
-                            <img id="friends_img" src="jay.jpg">
+                            <img id="friends_img" src="project/jay.jpg">
                             <br>
                             Jay
                         </div>
@@ -173,7 +175,7 @@
                          <!-- Post-1 -->
                         <div id="post">
                             <div>
-                                <img src="tony.jpg" style="width: 75px; margin-right: 4px;">
+                                <img src="project/tony.jpg" style="width: 75px; margin-right: 4px;">
                             </div>
                             <div style="font-weight: bold;color: #405d9b;">Tom</div>
                             <div>
@@ -187,7 +189,7 @@
                          <!-- Post-2 -->
                          <div id="post">
                             <div>
-                                <img src="natasha.jpg" style="width: 75px; margin-right: 4px;">
+                                <img src="project/natasha.jpg" style="width: 75px; margin-right: 4px;">
                             </div>
                             <div style="font-weight: bold;color: #405d9b;">Natasha</div>
                             <div>

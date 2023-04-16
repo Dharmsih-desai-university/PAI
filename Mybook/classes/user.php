@@ -3,7 +3,7 @@ class user
 {
       public function get_data($id)
       {
-        $query = "select * from users where uerid = '$id' limit 1";
+        $query = "select * from users where userid = '$id' limit 1";
         $DB  = new Database();
         $result = $DB->read($query);
 

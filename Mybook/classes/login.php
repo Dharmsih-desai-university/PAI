@@ -3,17 +3,17 @@ class Login{
     private $error = "";
     public function evaluate($data){
         $email = addslashes($data['email']);
-        $pwd = addslashes($data['password']);
-        $query = "select * from users where email = '$email' limit 1 ";
+        $password = addslashes($data['password']);
+        $query = "SELECT * FROM users WHERE email = '$email' limit 1 ";
       
         $DB = new Database();
         $result = $DB->read($query);
        if($result){ 
            $row = $result[0];
-           if($pwd == $row['password']){
+           if($password == $row['password']){
          //create session data;
             $_SESSION['mybook_userid'] = $row['userid'];
-        
+            
            }else{
               $this->error .= "wrong password<br>";
            }
@@ -23,7 +23,7 @@ class Login{
             return $this->error;
     }
     public function cheak_login($id){
-        $query = "select userid from users where userid = '$id' limit 1 ";
+        $query = "SELECT userid FROM users where userid = '$id' limit 1 ";
       
         $DB = new Database();
         $result = $DB->read($query);

@@ -16,9 +16,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         echo "</div>";
         
      }else{
-        //  header("Location: profile.php");
-
-         echo "<script>window.open('profile.php','_self')</script>";
+         header("Location: profile.php");
          die;
      }
      $password = $_POST['password'];
