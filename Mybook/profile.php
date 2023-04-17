@@ -116,6 +116,7 @@
             <div style="margin: auto;width: 800px;padding: 7px;">
                  My Book &nbsp; &nbsp;<input type="text" id="search_box" placeholder="Search For People">
                 <img src="project/dp2.jpg" style="width: 40px; float: right;">
+                <span style="font-size:11px;float: right;margin:10px;"><a href="logout.php" style="color:#fff;font-size:15px"> Log out </a></span>
             </div>
         </div>
         <!-- Cover Area -->

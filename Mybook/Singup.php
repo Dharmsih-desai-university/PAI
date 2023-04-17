@@ -84,14 +84,19 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         background-color:blue;
         color: white;
     }
-    
+    #login{
+        color:#fff;
+    }
+    #login:hover{
+        cursor:pointer;
+    }
    
 
 </style>
 <body style="font-family: tahoma; background-color:floralwhite;">
     <div  id="bar">
         <div style="font-size:40px;">Mybook</div>
-        <div id="signup_button">Login</div>
+        <div id="signup_button"><a href="login.php" id="login">Login</a></div>
     </div>
 <div id="bar2">
         Sign up to Mybook<br><br>
