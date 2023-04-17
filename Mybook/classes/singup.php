@@ -56,7 +56,7 @@ class Signup{
         $query = "insert into users (userid,first_name, last_name , gender,email ,password ,url_address) values
         ('$userid' , '$first_name' , '$last_name' , '$gender' , '$email' , '$pwd' , '$url_address' )";
         // echo $query;
-        $DB = new database();
+        $DB = new Database();
         $DB->save($query);
     }
    
