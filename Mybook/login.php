@@ -48,6 +48,13 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
          border-radius: 4px;
          float: right;
      }
+     #signup{
+        color:#fff;
+     }
+     #signup:hover{
+        cursor:pointer;
+     }
+    
     #bar2{
         background-color: white;
          width: 400px;
@@ -87,7 +94,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 <body style="font-family: tahoma; background-color:floralwhite;">
     <div  id="bar">
         <div style="font-size:40px;">Mybook</div>
-        <div id="signup_button">Signup</div>
+        <div id="signup_button"><a id="signup" href="singup.php">  Signup <a></div>
     </div>
 <form action="" method = "post">
  
