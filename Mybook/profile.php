@@ -3,27 +3,36 @@
      include("classes/config.php");
      include("classes/login.php");
      include("classes/user.php");
-      if(isset($_SESSION['mybook_userid']) && is_numeric($_SESSION['mybook_userid'])){
+     include("classes/post.php");
+    //  isset($_SESSION['mybook_userid'])
+    $login = new Login();
+    $user_data = $login->check_login($_SESSION['mybook_userid']);
+      //for posting 
+      if($_SERVER['REQUEST_METHOD'] == "POST"){
+         $post = new Post();
          $id = $_SESSION['mybook_userid'];
-         $DB = new Login();
-         $result = $DB->cheak_login($id);
-         if($result){
-              $user = new User();
-              $user_data = $user->get_data($id);
-              if(!$user_data){
-                 header("Location: login.php");
-                 die;
-              }
-         }
-         else{
-            header("Location: login.php");
-             die;
+         $result = $post->create_post($id , $_POST);
+         if($result == ""){
+            header("Location : profile.php");
+         }else{
+            echo "<div style = 'text-align:center;font-size:12px;color:white;background:grey;'
+            >";
+            echo "the following errors occured: <br><br>";
+            echo $result;
+            echo "</div>";
          }
       }
-      else{
-        header("Location: login.php");
-        die;
-      }
+      // collect posts
+      $post = new Post();
+      $id = $_SESSION['mybook_userid'];
+      $posts = $post->get_posts($id);
+      //collect firends
+      $user = new User();
+      $id = $_SESSION['mybook_userid'];
+      $friends = $user->get_friends($id);
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -32,13 +41,14 @@
         <title>Profile | My Book</title>
     </head>
     <style type="text/css">
-        #bar{
+        #blue_bar{
         height: 50px;
         background-color: #1877F2;
         color: white;
         font-size: 20px;
         font-family: tahoma;
         border-radius: 5px;
+        text-decoration:none;
         /* text-align: center; */
         }
         #search_box{
@@ -50,6 +60,7 @@
             background-image: url("search2.png");
             background-repeat: no-repeat;
             background-position: right;
+          
         }
         #profile_pic{
             width: 150px;
@@ -112,13 +123,9 @@
     </style>
 <body style="background-color: #d0d8e4;">
         <!-- Top Bar -->
-        <div id="bar">
-            <div style="margin: auto;width: 800px;padding: 7px;">
-                 My Book &nbsp; &nbsp;<input type="text" id="search_box" placeholder="Search For People">
-                <img src="project/dp2.jpg" style="width: 40px; float: right;">
-                <span style="font-size:11px;float: right;margin:10px;"><a href="logout.php" style="color:#fff;font-size:15px"> Log out </a></span>
-            </div>
-        </div>
+        <?php
+            include("header.php");
+        ?>
         <!-- Cover Area -->
         <div style="width: 800px; margin: auto;min-height: 400px;">
             <div style="color: #2a78b8; text-align: center;background-color: white;">
@@ -127,7 +134,7 @@
                 <br>
                 <div style="font-size: 20px;">Chris Taylor</div>
                 <br>
-                <div id="menu_buttons">Timeline</div>
+                <a href="index.php" target = "_blank"><div id="menu_buttons">Timeline</div></a>
                 <div id="menu_buttons">About</div>
                 <div id="menu_buttons">Friends</div>
                 <div id="menu_buttons">Photos</div>
@@ -138,68 +145,44 @@
                 <!-- Friends area -->
                 <div style="min-height: 400px;flex: 1;">
                     <div id="friends_bar">
-                        Friend 
-                        <br>
+                        Friend <br>
+                        <?php
+                         if($friends){
+                            foreach($friends as  $FRIEND_ROW){
+                                include("user.php");
+                            }
+                         }    
+                         ?>
                         <!-- Friends photos and name  -->
-                        <div id="Friends">
-                            <img id="friends_img" src="project/rdj.jpg">
-                            <br>
-                            Robert Downey jr
-                        </div>
-                        <div id="Friends">
-                            <img id="friends_img" src="project/steve.jpg">
-                            <br>
-                            Steve
-                        </div>
-                        <div id="Friends">
-                            <img id="friends_img" src="project/linda martin.jpg">
-                            <br>
-                            Linda 
-                        </div>
-                        <div id="Friends">
-                            <img id="friends_img" src="project/jay.jpg">
-                            <br>
-                            Jay
-                        </div>
                     </div>
                 </div>
                 <!-- Posts area -->
                 <div style="min-height: 400px;flex: 2.5;padding: 20px;padding-right: 0px;">
                     <div style="border:solid thin #aaa; padding: 10px; background-color: white;">
-                        <textarea placeholder="Whats on your mind ?"></textarea>
-                        <input  id="post_button" type="submit" value="Post">
+                    <form action="" method = "post">
+                    <textarea placeholder="Whats on your mind ?" name = "post"></textarea>
+                        <input  id="post_button" name = "" type="submit" value="Post">
                         <br>
+
+                    </form>
+                       
                     </div>
                     <!-- Posts -->
                     <div id="post_bar">
 
                          <!-- Post-1 -->
-                        <div id="post">
-                            <div>
-                                <img src="project/tony.jpg" style="width: 75px; margin-right: 4px;">
-                            </div>
-                            <div style="font-weight: bold;color: #405d9b;">Tom</div>
-                            <div>
-                            <br>
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. 
-                            <br><br>
-                            <a href="">Like</a> . <a href="">Comment</a> . <span style="color: #888;">April 23 2020</span>
-                            </div>
-                        </div>
-
                          <!-- Post-2 -->
-                         <div id="post">
-                            <div>
-                                <img src="project/natasha.jpg" style="width: 75px; margin-right: 4px;">
-                            </div>
-                            <div style="font-weight: bold;color: #405d9b;">Natasha</div>
-                            <div>
-                            <br>
-                            It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. 
-                            <br><br>
-                            <a href="">Like</a> . <a href="">Comment</a> . <span style="color: #888;">April 23 2020</span>
-                            </div>
-                        </div>
+                         <?php
+                         if($posts){
+                            foreach($posts as  $ROW){
+                                $user = new User();
+                                $ROW_USER = $user->get_user($ROW['userid']);
+                                include("post.php");
+
+                            }
+                         }
+                            
+                         ?>
 
                     </div>
                 </div>

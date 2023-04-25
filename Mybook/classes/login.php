@@ -22,15 +22,27 @@ class Login{
             }
             return $this->error;
     }
-    public function cheak_login($id){
-        $query = "SELECT userid FROM users where userid = '$id' limit 1 ";
-      
-        $DB = new Database();
-        $result = $DB->read($query);
-        if($result){
-            return true;
-        }
-        return false;
+    public function check_login($id){
+        if(is_numeric($id)){
+            $query = "SELECT * FROM users where userid = '$id' limit 1 ";
+            $DB = new Database();
+            $result = $DB->read($query);
+            if($result){
+                $user_data = $result[0];
+                return $user_data;
+            }else{
+                header("Location: login.php");
+                die;
+            } 
+                
+                // $id = $_SESSION['mybook_userid'];
+            // $user = new User();
+            // $user_data = $user->get_data($id);
+        }else{
+            header("Location: login.php");
+            die;
+        } 
+    
     }
 }
 ?>
