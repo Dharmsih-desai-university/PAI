@@ -1,7 +1,17 @@
+<?php
+  session_start();
+  include("classes/config.php");
+  include("classes/login.php");
+  include("classes/user.php");
+  include("classes/post.php");
+ //  isset($_SESSION['mybook_userid'])
+ $login = new Login();
+ $user_data = $login->check_login($_SESSION['mybook_userid']);
+?>  
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Timeline | My Book</title>
+        <title>Change profile image | My Book</title>
     </head>
     <style type="text/css">
         #bar{
@@ -19,7 +29,7 @@
             border-radius: 4px;
             border: none;
             padding: 4px;
-            background-image: url("search2.png");
+            background-image: url("Project/search2.png");
             background-repeat: no-repeat;
             background-position: right;
         }
@@ -68,12 +78,9 @@
 
         <!-- Top Bar -->
 
-        <div id="bar">
-            <div style="margin: auto;width: 800px;padding: 7px;">
-                 My Book &nbsp; &nbsp;<input type="text" id="search_box" placeholder="Search For People">
-                <img src="D:\Project\dp2.jpg" style="width: 40px; float: right;">
-            </div>
-        </div>
+        <?php
+            include("header.php");
+        ?>
 
             <div style="display: flex;">
 
@@ -81,8 +88,11 @@
                 
                 <div style="min-height: 400px;flex: 1;">
                     <div id="profile_area">
-                        <img src="dp2.jpg" id="profile_pic">
-                        <br>Chris Taylor
+                        <img src="Project/dp2.jpg" id="profile_pic">
+                        <br>
+                        <a href="profile.php" style = "text-decoration: none">  <?php echo $user_data['first_name'] . "<br> " . $user_data['last_name'] ?>
+                        </a>
+                      
                     </div>
                 </div>
 
@@ -103,7 +113,7 @@
                         
                         <div id="post">
                             <div>
-                                <img src="tony.jpg" style="width: 75px; margin-right: 4px;">
+                                <img src="Project/tony.jpg" style="width: 75px; margin-right: 4px;">
                             </div>
                             <div style="font-weight: bold;color: #405d9b;">Tom</div>
                             <div>
@@ -117,7 +127,7 @@
                          <!-- Post-2 -->
                          <div id="post">
                             <div>
-                                <img src="natasha.jpg" style="width: 75px; margin-right: 4px;">
+                                <img src="Project/natasha.jpg" style="width: 75px; margin-right: 4px;">
                             </div>
                             <div style="font-weight: bold;color: #405d9b;">Natasha</div>
                             <div>
@@ -127,13 +137,9 @@
                             <a href="">Like</a> . <a href="">Comment</a> . <span style="color: #888;">April 23 2020</span>
                             </div>
                         </div>
-
                     </div>
                 </div>
            </div>
-        </div>
-        
-       
-
+        </div>    
     </body>
 </html>

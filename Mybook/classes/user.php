@@ -1,5 +1,5 @@
 <?php
-class user
+class User
 {
       public function get_data($id)
       {
@@ -19,7 +19,7 @@ class user
       }
       public function get_user($id)
       {
-        $query = "select * from users where uerid = '$id' limit 1";
+        $query = "select * from users where userid = '$id' limit 1";
         $DB  = new Database();
         $result = $DB->read($query);
 
@@ -35,7 +35,7 @@ class user
       }
       public function get_friends($id)
       {
-        $query = "select * from users where uerid != '$id'  ";
+        $query = "select * from users where userid != '$id'  ";
         $DB  = new Database();
         $result = $DB->read($query);
 
