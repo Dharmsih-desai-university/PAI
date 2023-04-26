@@ -130,7 +130,13 @@
         <div style="width: 800px; margin: auto;min-height: 400px;">
             <div style="color: #2a78b8; text-align: center;background-color: white;">
                 <img src="project/cover.jpg" style="width: 100%;">
-                <img id="profile_pic" src="project/dp2.jpg">
+                <span style = "font-size: 11px">
+                     <img id="profile_pic" src="project/dp2.jpg"><br>
+                      <a href = "change_profile_image.php"> 
+                     change image
+                </a>
+                </span>
+               
                 <br>
                 <div style="font-size: 20px;">Chris Taylor</div>
                 <br>

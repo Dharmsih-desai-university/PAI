@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 16, 2023 at 02:09 PM
+-- Generation Time: Apr 26, 2023 at 09:39 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -36,19 +36,18 @@ CREATE TABLE `users` (
   `email` varchar(100) NOT NULL,
   `password` varchar(100) NOT NULL,
   `url_address` varchar(100) NOT NULL,
-  `date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `profile_image` varchar(1000) NOT NULL,
+  `cover_image` varchar(1000) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `userid`, `first_name`, `last_name`, `gender`, `email`, `password`, `url_address`, `date`) VALUES
-(10, 38513759, 'Nanabhai', 'Gohil', 'Male', 'aam@ddu.ac.in', '1234', 'nanabhai.gohil', '2023-04-16 03:12:19'),
-(12, 72302, 'Dkdkddk', 'Kdkkdk', 'Male', 'wddfj@333gmail.com', '1234', 'dkdkddk.kdkkdk', '2023-04-16 10:41:24'),
-(13, 3741790716775, 'Nana', 'Gohil', 'Male', 'aam@ddu.ac.in', '1234', 'nana.gohil', '2023-04-16 10:59:28'),
-(14, 546, 'Nanabhai', 'Gohil', 'Male', 'aam@ddu.ac.in', '1234', 'nanabhai.gohil', '2023-04-16 11:27:12'),
-(15, 3931, 'Nanabhai', 'Gohil', 'Male', 'aam@ddu.ac.in', '1234', 'nanabhai.gohil', '2023-04-16 11:27:23');
+INSERT INTO `users` (`id`, `userid`, `first_name`, `last_name`, `gender`, `email`, `password`, `url_address`, `date`, `profile_image`, `cover_image`) VALUES
+(14, 546, 'Nanabhai', 'Gohil', 'Male', 'aam@ddu.ac.in', '1234', 'nanabhai.gohil', '2023-04-16 11:27:12', '', ''),
+(16, 128841108722044, 'Akshay', 'Gohel', 'Male', 'gohelakshay345@gmail.com', '345', 'akshay.gohel', '2023-04-18 16:58:38', '', '');
 
 --
 -- Indexes for dumped tables
@@ -76,7 +75,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
