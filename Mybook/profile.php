@@ -13,7 +13,7 @@
          $id = $_SESSION['mybook_userid'];
          $result = $post->create_post($id , $_POST);
          if($result == ""){
-            header("Location : profile.php");
+            header("Location:profile.php");
          }else{
             echo "<div style = 'text-align:center;font-size:12px;color:white;background:grey;'
             >";
@@ -129,12 +129,25 @@
         <!-- Cover Area -->
         <div style="width: 800px; margin: auto;min-height: 400px;">
             <div style="color: #2a78b8; text-align: center;background-color: white;">
-                <img src="project/cover.jpg" style="width: 100%;">
+                    <?php
+                       $image="";
+                       if(file_exists($user_data['cover_image'])){
+                         $image=$user_data['cover_image'];
+                       }
+                       
+                    ?>
+                <img src="<?php echo $image;?>" style="width: 100%;">
                 <span style = "font-size: 11px">
-                     <img id="profile_pic" src="project/dp2.jpg"><br>
-                      <a href = "change_profile_image.php"> 
-                     change image
-                </a>
+                    <?php
+                       $image="";
+                       if(file_exists($user_data['profile_image'])){
+                         $image=$user_data['profile_image'];
+                       }
+                       
+                    ?>
+                     <img id="profile_pic" src="<?php echo $image;?>"><br>
+                      <a style="font-size:20px;text-decoration:none;color:#f0f;" href = "change_profile_image.php?change=profile">change profile image</a> |
+                      <a style="font-size:20px;text-decoration:none;color:#f0f;" href = "change_profile_image.php?change=cover">change cover</a>
                 </span>
                
                 <br>
