@@ -16,33 +16,53 @@
             $allowed_size=1024*1024*7;//its mean three mega byte
             if($_FILES['file']['size']<$allowed_size){
             //every thing is fine
-            $filename="uploads/".$_FILES['file']['name'];
+            $folder="uploads/".$user_data['userid']."/";
+            //create folder here
+            if(!file_exists($folder)){
+                mkdir($folder,0777,true);
+            }
+            $image= new Image();
+
+            $filename=$folder.$image->generate_filename(15).".jpg";
             move_uploaded_file($_FILES['file']['tmp_name'],$filename);
             $change="profile";
                 //check for mode
                 if(isset($_GET['change'])){
                     $change=$_GET['change'];
                 }
-            $image= new Image();
+          
             if($change=="cover"){
-                $image->crop_image($filename,$filename,1560,488);
+                if(file_exists($user_data['cover_image'])){
+                    unlink($user_data['cover_image']);
+                }
+                $image->resize_image($filename,$filename,1500,1500);
             }
             else{
-                $image->crop_image($filename,$filename,800,800);
+                if(file_exists($user_data['profile_image'])){
+                    unlink($user_data['profile_image']);
+                }
+                $image->resize_image($filename,$filename,1500,1500);
             }
             if(file_exists($filename)){
                 $userid=$user_data['userid'];
-                
                 if($change=="cover"){
                     $query="UPDATE users SET cover_image='$filename' WHERE userid='$userid' limit 1";
+                    $_POST['is_cover_image']=1;
                 }
                 else{
                     $query="UPDATE users SET profile_image='$filename' WHERE userid='$userid' limit 1";
+                    $_POST['is_profile_image']=1;
                 }
                
-                
+                //create a post
                 $DB= new Database();
                 $check=$DB->save($query);
+                
+                //create a post
+                $post = new Post();
+               
+                $post->create_post($userid , $_POST,$filename);
+
                 header("location:profile.php");
                 die;
             }
@@ -153,8 +173,23 @@
                   <input type="file" name = "file">
                      <input  id="post_button" type="submit" value="change">
                     <br>
+                    <div style="text-align:center">
+                    <?php
+                    $change="profile";
+                    //check for mode
+                    if(isset($_GET['change'])&&$_GET['change']=="cover"){
+                        $change="cover";
+                        echo "<img style='max-width:500px; border-radius:20%;' src='$user_data[cover_image]'>";
+                    }else{
+                        echo "<img style='max-width:500px; border-radius:50%;' src='$user_data[profile_image]'>";
+                    }
+                    
+                   
+                    ?>
+                    </div>
                   </div>
                 
+
             </form>
             </div>      
         </div>    

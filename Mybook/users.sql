@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 26, 2023 at 09:39 AM
+-- Generation Time: Apr 27, 2023 at 08:36 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -47,7 +47,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `userid`, `first_name`, `last_name`, `gender`, `email`, `password`, `url_address`, `date`, `profile_image`, `cover_image`) VALUES
 (14, 546, 'Nanabhai', 'Gohil', 'Male', 'aam@ddu.ac.in', '1234', 'nanabhai.gohil', '2023-04-16 11:27:12', '', ''),
-(16, 128841108722044, 'Akshay', 'Gohel', 'Male', 'gohelakshay345@gmail.com', '345', 'akshay.gohel', '2023-04-18 16:58:38', '', '');
+(16, 128841108722044, 'Akshay', 'Gohel', 'Male', 'gohelakshay345@gmail.com', '345', 'akshay.gohel', '2023-04-27 04:07:16', 'uploads/128841108722044/iKgKCQRm8jMDewh.jpg', 'uploads/128841108722044/hWHom0AHFdCdnoJ.jpg');
 
 --
 -- Indexes for dumped tables
