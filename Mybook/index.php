@@ -1,9 +1,6 @@
 <?php
-  session_start();
-  include("classes/config.php");
-  include("classes/login.php");
-  include("classes/user.php");
-  include("classes/post.php");
+  include("classes/autoload.php");
+  $image_class=new Image();
  //  isset($_SESSION['mybook_userid'])
  $login = new Login();
  $user_data = $login->check_login($_SESSION['mybook_userid']);

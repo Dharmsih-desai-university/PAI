@@ -1,17 +1,25 @@
 <?php
-     session_start();
-     include("classes/config.php");
-     include("classes/login.php");
-     include("classes/user.php");
-     include("classes/post.php");
+    
+     include("classes/autoload.php");
+     
     //  isset($_SESSION['mybook_userid'])
     $login = new Login();
     $user_data = $login->check_login($_SESSION['mybook_userid']);
-      //for posting 
+
+      if(isset($_GET['id'])&& is_numeric($_GET['id'])){
+            $profile=new Profile();
+        $profile_data=$profile->get_profile($_GET['id']);
+        if(is_array($profile_data)){
+        $user_data=$profile_data[0];
+      }
+      }
+      
+            //for posting 
       if($_SERVER['REQUEST_METHOD'] == "POST"){
+        
          $post = new Post();
          $id = $_SESSION['mybook_userid'];
-         $result = $post->create_post($id , $_POST);
+         $result = $post->create_post($id , $_POST,$_FILES);
          if($result == ""){
             header("Location:profile.php");
          }else{
@@ -24,15 +32,14 @@
       }
       // collect posts
       $post = new Post();
-      $id = $_SESSION['mybook_userid'];
+      $id = $user_data['userid'];
       $posts = $post->get_posts($id);
       //collect firends
       $user = new User();
-      $id = $_SESSION['mybook_userid'];
+     
       $friends = $user->get_friends($id);
 
-
-
+     $image_class=new Image();    
 ?>
 
 <!DOCTYPE html>
@@ -121,7 +128,7 @@
             margin-bottom: 20px;
         }
     </style>
-<body style="background-color: #d0d8e4;">
+<body style="background-color: #d0d8e4;font-family:tahoma;">
         <!-- Top Bar -->
         <?php
             include("header.php");
@@ -130,18 +137,24 @@
         <div style="width: 800px; margin: auto;min-height: 400px;">
             <div style="color: #2a78b8; text-align: center;background-color: white;">
                     <?php
-                       $image="";
+                       $image="project/cover.jpg";
                        if(file_exists($user_data['cover_image'])){
-                         $image=$user_data['cover_image'];
+                         $image=$image_class->get_thumb_cover($user_data['cover_image']);
                        }
                        
                     ?>
-                <img src="<?php echo $image;?>" style="width: 100%;">
+                <img src="<?php echo $image;?>" style="width: 100%; height:400px;">
                 <span style = "font-size: 11px">
                     <?php
-                       $image="";
+                       $image="project/";
+                       if($user_data['gender']=="Female"){
+                           $image.="user_female.jpeg";
+                       }
+                       else{
+                           $image.="user_male.jpeg";
+                       }
                        if(file_exists($user_data['profile_image'])){
-                         $image=$user_data['profile_image'];
+                        $image=$image_class->get_thumb_profile($user_data['profile_image']);
                        }
                        
                     ?>
@@ -151,7 +164,7 @@
                 </span>
                
                 <br>
-                <div style="font-size: 20px;">Chris Taylor</div>
+                <div style="font-size: 20px;"><?php echo $user_data['first_name']." ".$user_data['last_name']; ?></div>
                 <br>
                 <a href="index.php" target = "_blank"><div id="menu_buttons">Timeline</div></a>
                 <div id="menu_buttons">About</div>
@@ -178,10 +191,11 @@
                 <!-- Posts area -->
                 <div style="min-height: 400px;flex: 2.5;padding: 20px;padding-right: 0px;">
                     <div style="border:solid thin #aaa; padding: 10px; background-color: white;">
-                    <form action="" method = "post">
+                    <form action="" method = "post" enctype="multipart/form-data">
                     <textarea placeholder="Whats on your mind ?" name = "post"></textarea>
                         <input  id="post_button" name = "" type="submit" value="Post">
                         <br>
+                        <input type="file" name="file">
 
                     </form>
                        
