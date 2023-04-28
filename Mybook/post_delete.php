@@ -42,40 +42,7 @@
                
                  }
                
-               ?>
-
-                  
-            <p style = "color: black; font-size:14px">
-              <?php echo htmlspecialchars($ROW['post']) ?>
-            </p>
-            <br/><br/>
-             <a href="">Like</a> . <a href="">Comment</a> .
-             <span style="color: #888;">
-               <?php echo $ROW['date'] ?>
-               
-            </span>
-            <span style="color: #888; float:right;">
-            <?php
-            $post = new post();
-
-            if($post->i_own_post($Row['postid'],$_SESSION['mybook_userid'])){
-
-                  echo "
-                        <a href='edit.php'>
-                              Edit
-                        </a> .
-
-                        <a href='delete.php?id=$Row[postid]'>
-                              Delete
-                        </a>
-                  "; 
-                  
-            }
-           
-            ?>
-
-            </span>
-            
+               ?>                        
    
     </div>     
 </div>

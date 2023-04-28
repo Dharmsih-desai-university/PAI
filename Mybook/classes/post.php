@@ -69,16 +69,48 @@ class Post
 
         return $this->error;
     }
-    public function get_posts($id){
-        $query = "select * from  post where userid = '$id' order by id desc limit 10";
-        $DB = new Database();
-        $result = $DB->read($query);
-        if($result){
-            return $result;
-        }else{
+    // public function get_one_post($postid){
+    //     if(!is_numeric($postid)){
+
+    //         return false;
+    //     }
+    //     $query = "select * from  post where postid = '$postid'limit 10";
+    //     $DB = new Database();
+    //     $result = $DB->read($query);
+    //     if($result){
+    //         return $result[0];
+    //     }else{
+    //         return false;
+    //     }
+
+    // }
+
+    public function delete_post($postid){
+        
+        if(!is_numeric($postid)){
+
             return false;
         }
+        $query = "delete from  post where postid = '$postid'limit 1";
+        $DB = new Database();
+        $DB->save($query);
+    }
+    public function i_own_post($postid,$mubook_userid = 0){
+        
+        if(!is_numeric($postid)){
 
+            return false;
+        }
+        $query = "delete from  post where postid = '$postid'limit 1";
+        $DB = new Database();
+        $result = $DB->read($query);
+
+        if(is_array($result)){
+            if($result[0]['userid']==$mubook_userid){
+                return true;
+            }
+        }
+        return false;
     }
     private function create_postid()
     {
